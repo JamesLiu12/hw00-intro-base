@@ -64,7 +64,7 @@ To check if everything is on the right track:
 
 2. In the Settings tab, under Pages, make sure it says your site is published at some url -- clicking it should show your live demo.
 
-> **Note:** If the workflow fails on its very first run with an error about the `github-pages` environment not existing, that just means step 3 above (selecting "GitHub Actions" as the source) hasn't been done yet -- do that, then re-run the failed workflow from the Actions tab.
+> **Note:** If the workflow fails on its very first run with an error about the `github-pages` environment not existing, that just means step 3 above (selecting "GitHub Actions" as the source) hasn't been done yet. Perform step 3, then re-run the failed workflow from the Actions tab.
 
 ## Submission
 1. Create a pull request to this repository with your completed code.
