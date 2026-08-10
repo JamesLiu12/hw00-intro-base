@@ -8,6 +8,7 @@
 ## Objective
 Get comfortable with using WebGL and its shaders to generate an interesting 3D, continuous surface using a multi-octave noise algorithm.
 
+<<<<<<< HEAD
 ## Getting Started
 - __Fork__ this repository
 - Run `npm install` and `npm run dev` to set up the dependencies for this project
