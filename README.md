@@ -32,9 +32,7 @@ Rather than cloning the homework repository, please __fork__ the code into your 
 One of the most important dependencies of our projects is [Vite](https://vite.dev/guide/). Vite is a dev server and module bundler which allows us to write code in separate files and use `import`s and `export`s to load classes and functions from other files. It also allows us to preprocess code before compiling to a single bundle. We will be using [Typescript](https://www.typescriptlang.org/docs/home.html) for our WebGL assignments in this course, which is Javascript augmented with type annotations. Vite converts Typescript files to Javascript on the fly during development and bundles/type-checks everything when you run `npm run build`. Read more about Javascript modules in the resources section below.
 
 ## Developing Your Code
-All of the JavaScript code is living inside the `src` directory. The main file that gets executed when you load the page as you may have guessed is `main.ts`. Here, you can make any changes you want, import functions from other files, etc. The reason that we highly suggest you run your project with `npm run dev` is that doing so will start a process that watches for any changes you make to your code. If it detects anything, it'll automagically rebuild the affected parts of your project and hot-refresh your browser window for you — usually in well under a second. Wow. That's cool. If you do it the other way (`npm run build`), you'll need to re-run that command and then refresh your page every time you want to test something.
-
-We would suggest editing your project with Visual Studio Code https://code.visualstudio.com/. Microsoft develops it and Microsoft also develops Typescript so all of the features work nicely together. Sublime Text and installing the Typescript plugins should probably work as well.
+All of the TypeScript code you will be editing can be found within the `src` directory. The "main" file that gets executed when you load the page is `main.ts`, though you should read through the other files to understand how the shaders and geometry are set up. The reason that we highly suggest you run your project with `npm run dev` is that doing so will start a process that watches for any changes you make to your code. If it detects anything, it'll automatically rebuild the affected parts of your project and hot-refresh your browser window for you. If you do it the other way (`npm run build`), you'll need to re-run that command and then refresh your page every time you want to test something.
 
 ## Assignment Details
 1. Take some time to go through the existing codebase so you can get an understanding of syntax and how the code is architected. Much of the code is designed to mirror the class structures used in CIS 4600's OpenGL assignments, so it should hopefully be somewhat familiar.
@@ -62,7 +60,7 @@ To check if everything is on the right track:
 
 1. Go to the **Actions** tab of your repo and confirm the latest "Build and Deploy" run finished with a green checkmark (both the `build` and `deploy` jobs).
 
-2. In the Settings tab, under Pages, make sure it says your site is published at some url -- clicking it should show your live demo.
+2. In the Settings tab, under Pages, make sure it says your site is published at some URL. Clicking the URL should show your live demo.
 
 > **Note:** If the workflow fails on its very first run with an error about the `github-pages` environment not existing, that just means step 3 above (selecting "GitHub Actions" as the source) hasn't been done yet. Perform step 3, then re-run the failed workflow from the Actions tab.
 
