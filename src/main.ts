@@ -16,6 +16,7 @@ import lambertPerlinFragSource from './shaders/lambert-perlin-frag.glsl?raw';
 // Define an object with application parameters and button callbacks
 // This will be referred to by dat.GUI's functions that add GUI elements.
 const controls = {
+  model: 'Icosphere',
   tesselations: 5,
   'Load Scene': loadScene, // A function pointer, essentially
   color: [255, 46, 3],
@@ -51,6 +52,7 @@ function main() {
 
   // Add controls to the gui
   const gui = new DAT.GUI();
+  gui.add(controls, 'model', ['Icosphere', 'Square', 'Cube']);
   gui.add(controls, 'tesselations', 0, 8).step(1);
   gui.add(controls, 'Load Scene');
   gui.addColor(controls, 'color');
@@ -114,11 +116,10 @@ function main() {
     lambert.setAmplitude(controls.amplitude)
     lambert.setBumpStrength(controls.bumpStrength);
     lambert.setFrequency(controls.frequency);
-    renderer.render(camera, lambert, [
-      icosphere,
-      // square,
-      // cube,
-    ]);
+    const selectedModel = controls.model === 'Square' ? square
+                        : controls.model === 'Cube' ? cube 
+                        : icosphere;
+    renderer.render(camera, lambert, [selectedModel]);
     stats.end();  
 
     // Tell the browser to call `tick` again whenever it renders a new frame
