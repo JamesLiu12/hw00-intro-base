@@ -1,4 +1,4 @@
-import {vec4, mat4} from 'gl-matrix';
+import {vec3, vec4, mat4} from 'gl-matrix';
 import Drawable from './Drawable';
 import {gl} from '../../globals';
 
@@ -29,6 +29,7 @@ class ShaderProgram {
   unifModelInvTr: WebGLUniformLocation;
   unifViewProj: WebGLUniformLocation;
   unifColor: WebGLUniformLocation;
+  unifCenterColor: WebGLUniformLocation;
   unifAmplitude: WebGLUniformLocation;
   unifTime: WebGLUniformLocation;
   unifBumpStrength: WebGLUniformLocation;
@@ -52,6 +53,7 @@ class ShaderProgram {
     this.unifModelInvTr = gl.getUniformLocation(this.prog, "u_ModelInvTr");
     this.unifViewProj   = gl.getUniformLocation(this.prog, "u_ViewProj");
     this.unifColor      = gl.getUniformLocation(this.prog, "u_Color");
+    this.unifCenterColor = gl.getUniformLocation(this.prog, 'u_CenterColor');
     this.unifAmplitude = gl.getUniformLocation(this.prog, 'u_Amplitude');
     this.unifTime = gl.getUniformLocation(this.prog, 'u_Time');
     this.unifBumpStrength = gl.getUniformLocation(this.prog, 'u_BumpStrength');
@@ -96,6 +98,11 @@ class ShaderProgram {
   setTime(time: number) {
     this.use();
     gl.uniform1f(this.unifTime, time);
+  }
+
+  setCenterColor(color: vec3) {
+    this.use();
+    gl.uniform3fv(this.unifCenterColor, color);
   }
 
   setAmplitude(amplitude: number) {

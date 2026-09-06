@@ -3,6 +3,7 @@
 precision highp float;
 
 uniform vec4 u_Color;
+uniform vec3 u_CenterColor;
 uniform float u_BumpStrength;
 uniform float u_Frequency;
 
@@ -70,7 +71,9 @@ void main() {
     float colorMix = smoothstep(0.45, 0.55, noise);
 
     vec3 darkColor = vec3(0.17, 0.16, 0.15);
-    vec3 finalColor = mix(darkColor, u_Color.rgb, colorMix);
+    float heat = smoothstep(0.55, 0.7, noise);
+    vec3 brightColor = mix(u_Color.rgb, u_CenterColor, heat);
+    vec3 finalColor = mix(darkColor, brightColor, colorMix);
 
     float height = (1.0 - colorMix) * u_BumpStrength;
 

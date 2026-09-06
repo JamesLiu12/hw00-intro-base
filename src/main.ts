@@ -20,6 +20,7 @@ const controls = {
   tesselations: 5,
   'Load Scene': loadScene, // A function pointer, essentially
   color: [255, 46, 3],
+  centerColor: [255, 217, 89],
   alpha: 1.0,
   amplitude: 0.25,
   speed: 1.0,
@@ -56,6 +57,7 @@ function main() {
   gui.add(controls, 'tesselations', 0, 8).step(1);
   gui.add(controls, 'Load Scene');
   gui.addColor(controls, 'color');
+  gui.addColor(controls, 'centerColor');
   gui.add(controls, 'alpha', 0, 1).step(0.01);
   gui.add(controls, 'amplitude', 0, 0.6).step(0.01);
   gui.add(controls, 'speed', 0, 3).step(0.1);
@@ -113,6 +115,11 @@ function main() {
       controls.alpha,
     ));
     lambert.setTime(totalTime);
+    lambert.setCenterColor(vec3.fromValues(
+      controls.centerColor[0] / 255,
+      controls.centerColor[1] / 255,
+      controls.centerColor[2] / 255,
+    ));
     lambert.setAmplitude(controls.amplitude)
     lambert.setBumpStrength(controls.bumpStrength);
     lambert.setFrequency(controls.frequency);
