@@ -58,6 +58,7 @@ The lava look comes from using the noise in three ways:
 3. **Recessed lava:** The height comes from `(1.0 - colorMix) * u_BumpStrength`. The rock is higher and the lava is lower. Screen-space derivatives of the height and world position adjust the normal for lighting. This only changes the surface appearance, not the mesh or its outline.
 
 ![Lava colors and surface detail in green](images/lava-detail.png)
+
 *Lava colors and surface detail in green*
 
 The lighting model is still Lambert diffuse shading.
