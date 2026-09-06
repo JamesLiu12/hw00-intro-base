@@ -9,16 +9,21 @@ import Camera from './Camera';
 import {setGL} from './globals';
 import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
 
-import lambertVertSource from './shaders/lambert-vert.glsl?raw';
-import lambertFragSource from './shaders/lambert-frag.glsl?raw';
+import lambertAnimateVertSource from './shaders/lambert-animate-vert.glsl?raw';
+
+import lambertPerlinFragSource from './shaders/lambert-perlin-frag.glsl?raw';
 
 // Define an object with application parameters and button callbacks
 // This will be referred to by dat.GUI's functions that add GUI elements.
 const controls = {
   tesselations: 5,
   'Load Scene': loadScene, // A function pointer, essentially
-  color: [255, 0, 0],
+  color: [255, 46, 3],
   alpha: 1.0,
+  amplitude: 0.25,
+  speed: 1.0,
+  bumpStrength: 0.08,
+  frequency: 5,
 };
 
 let icosphere: Icosphere;
@@ -50,6 +55,10 @@ function main() {
   gui.add(controls, 'Load Scene');
   gui.addColor(controls, 'color');
   gui.add(controls, 'alpha', 0, 1).step(0.01);
+  gui.add(controls, 'amplitude', 0, 0.6).step(0.01);
+  gui.add(controls, 'speed', 0, 3).step(0.1);
+  gui.add(controls, 'bumpStrength', 0, 0.2).step(0.01);
+  gui.add(controls, 'frequency', 1, 15).step(0.01)
 
   // get canvas and webgl context
   const canvas = <HTMLCanvasElement> document.getElementById('canvas');
@@ -73,12 +82,18 @@ function main() {
   gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
   const lambert = new ShaderProgram([
-    new Shader(gl.VERTEX_SHADER, lambertVertSource),
-    new Shader(gl.FRAGMENT_SHADER, lambertFragSource),
+    new Shader(gl.VERTEX_SHADER, lambertAnimateVertSource),
+
+    new Shader(gl.FRAGMENT_SHADER, lambertPerlinFragSource),
   ]);
 
+  let totalTime = 0;
+  let pervTime = performance.now();
   // This function will be called every frame
   function tick() {
+    const now = performance.now();
+    totalTime += Math.min((now - pervTime) / 1000, 0.1) * controls.speed;
+    pervTime = now;
     camera.update();
     stats.begin();
     gl.viewport(0, 0, window.innerWidth, window.innerHeight);
@@ -95,10 +110,14 @@ function main() {
       controls.color[2] / 255,
       controls.alpha,
     ));
+    lambert.setTime(totalTime);
+    lambert.setAmplitude(controls.amplitude)
+    lambert.setBumpStrength(controls.bumpStrength);
+    lambert.setFrequency(controls.frequency);
     renderer.render(camera, lambert, [
-      // icosphere,
+      icosphere,
       // square,
-      cube,
+      // cube,
     ]);
     stats.end();  
 
@@ -121,3 +140,4 @@ function main() {
 }
 
 main();
+

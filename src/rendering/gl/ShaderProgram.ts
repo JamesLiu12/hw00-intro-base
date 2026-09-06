@@ -29,6 +29,10 @@ class ShaderProgram {
   unifModelInvTr: WebGLUniformLocation;
   unifViewProj: WebGLUniformLocation;
   unifColor: WebGLUniformLocation;
+  unifAmplitude: WebGLUniformLocation;
+  unifTime: WebGLUniformLocation;
+  unifBumpStrength: WebGLUniformLocation;
+  unifFrequency: WebGLUniformLocation;
 
   constructor(shaders: Array<Shader>) {
     this.prog = gl.createProgram();
@@ -48,6 +52,10 @@ class ShaderProgram {
     this.unifModelInvTr = gl.getUniformLocation(this.prog, "u_ModelInvTr");
     this.unifViewProj   = gl.getUniformLocation(this.prog, "u_ViewProj");
     this.unifColor      = gl.getUniformLocation(this.prog, "u_Color");
+    this.unifAmplitude = gl.getUniformLocation(this.prog, 'u_Amplitude');
+    this.unifTime = gl.getUniformLocation(this.prog, 'u_Time');
+    this.unifBumpStrength = gl.getUniformLocation(this.prog, 'u_BumpStrength');
+    this.unifFrequency = gl.getUniformLocation(this.prog, "u_Frequency");
   }
 
   use() {
@@ -85,6 +93,26 @@ class ShaderProgram {
     }
   }
 
+  setTime(time: number) {
+    this.use();
+    gl.uniform1f(this.unifTime, time);
+  }
+
+  setAmplitude(amplitude: number) {
+    this.use();
+    gl.uniform1f(this.unifAmplitude, amplitude);
+  }
+
+  setBumpStrength(strength: number) {
+    this.use();
+    gl.uniform1f(this.unifBumpStrength, strength);
+  }
+
+  setFrequency(frequency: number) {
+    this.use();
+    gl.uniform1f(this.unifFrequency, frequency);
+  }
+
   draw(d: Drawable) {
     this.use();
 
@@ -107,3 +135,4 @@ class ShaderProgram {
 };
 
 export default ShaderProgram;
+
